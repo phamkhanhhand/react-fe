@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ExamplePage from './pages/example/ExamplePage';
+import FlexValuePage from './pages/flex-value/flex-value-list';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         {/* <Route path="/" element={<div>Home</div>} /> */}
 
         <Route path="/" element={<ExamplePage />} />
+        <Route path="/flex-values" element={<FlexValuePage />} />
 
       </Routes>
     </BrowserRouter>
