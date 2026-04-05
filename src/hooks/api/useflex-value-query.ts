@@ -14,7 +14,7 @@ export const useFlexValueQuery = (options?: {
     queryKey: ["exampleGet", "John"],
     queryFn: () => GetFlexValue(),
 
-    // enabled: false, // ❗ không auto call
+    enabled: false, // ❗ không auto call
   });
 
   useEffect(() => {

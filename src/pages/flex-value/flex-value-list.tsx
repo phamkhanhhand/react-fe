@@ -8,6 +8,11 @@ export default function FlexValuePage() {
 
     const { data: dataRepo, isLoading, isError, error, refetch } = useFlexValueQuery();
 
+    useEffect(() => {
+    refetch(); // bây giờ mới gọi
+    }, []);
+
+
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error: {error?.message}</div>;
 
