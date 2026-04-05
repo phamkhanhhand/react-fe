@@ -55,3 +55,13 @@ src/
 ├── types/          // TypeScript types
 ├── constants/
 ├── utils/
+
+
+
+UI (Component)
+   ↓
+Hook (useExample): logic, state, business 
+   ↓
+Service (exampleApi): just call api
+   ↓
+Backend (NestJS)

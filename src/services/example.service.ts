@@ -28,7 +28,7 @@ export const exampleGetApi = async (
   const res = await fetch(
     `http://localhost:3001/flexvalue?${query}`
   );
-debugger
+
   if (!res.ok) {
     throw new Error("API error");
   }
