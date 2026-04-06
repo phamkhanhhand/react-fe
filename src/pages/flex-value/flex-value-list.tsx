@@ -70,19 +70,16 @@ export default function FlexValuePage() {
 
     <Paper>
 
-<Box >
-Danh sách giá trị danh mục
-</Box>
+      <Box >
+        Danh sách giá trị danh mục
+      </Box>
 
       <Toolbar disableGutters>
 
 
-        <Button variant="contained" color="primary" onClick={() => 
-          
-
-{
-  setOpenAddPopup(true);
-}
+        <Button variant="contained" color="primary" onClick={() => {
+          setOpenAddPopup(true);
+        }
 
         }>
           Add
@@ -140,11 +137,11 @@ Danh sách giá trị danh mục
         </Table>
       </TableContainer>
 
-    <FlexValueAddPopup isOpen={openAddPopup}
-    onClose={() => {
-      setOpenAddPopup(false);
-    }}
-    ></FlexValueAddPopup>
+      <FlexValueAddPopup isOpen={openAddPopup}
+        onClose={() => {
+          setOpenAddPopup(false);
+        }}
+      ></FlexValueAddPopup>
     </Paper>
 
 

@@ -57,8 +57,7 @@ export default function FlexValueAddPopup(
 
       position="right" // 🔥 có sẵn luôn
     >
-
-      <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+ 
 
         <div>
           {/* Form fields for adding a new Flex Value */}
@@ -74,8 +73,7 @@ export default function FlexValueAddPopup(
             Save
           </Button>
 
-        </Box>
-      </Box>
+        </Box> 
     </Drawer>
 
   );
