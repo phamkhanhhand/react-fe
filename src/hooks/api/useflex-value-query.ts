@@ -5,16 +5,20 @@ import { useEffect } from "react";
 import { FlexValue, PagingData,   } from "../../shared/interface";
 import { GetFlexValue } from "../../services/flex-value.service"; 
 
-export const useFlexValueQuery = (options?: {
+export const useFlexValueQuery = (
+  
+  page: number,
+  rowsPerPage: number,  
+  options?: {
   onSuccess?: (data: PagingData<FlexValue>) => void;
   onError?: (error: Error) => void;
 }) => {
   
   const query = useQuery<PagingData<FlexValue>>({
-    queryKey: ["exampleGet", "John"],
-    queryFn: () => GetFlexValue(),
+    queryKey: ["flexValue",   page, rowsPerPage],
+    queryFn: () => GetFlexValue(page, rowsPerPage),
 
-    enabled: false, // ❗ không auto call
+    // enabled: false, // ❗ không auto call
   });
 
   useEffect(() => {

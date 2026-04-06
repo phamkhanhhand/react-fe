@@ -14,9 +14,11 @@ export const SaveFlexValue = async (data: ExampleRequest): Promise<any> => {
 
 
 // GET
-export const GetFlexValue = async (): Promise<any> => {
+export const GetFlexValue = async (
+  pageIndex: number,
+  pageSize: number): Promise<any> => {
 
-  const { data: res } = await PublicRequest.get<any>("/flex-value?page=1&pageSize=10", {
+  const { data: res } = await PublicRequest.get<any>(`/flex-value?page=${pageIndex + 1}&pageSize=${pageSize}`, {
     params: {   },
   });
   return res;
