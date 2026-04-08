@@ -9,14 +9,15 @@ export const useFlexValueSetQuery = (
   
   page: number,
   rowsPerPage: number,  
+  searchValue: string,
   options?: {
   onSuccess?: (data: PagingData<FlexValueSet>) => void;
   onError?: (error: Error) => void;
 }) => {
   
   const query = useQuery<PagingData<FlexValueSet>>({
-    queryKey: ["flexValueSet",   page, rowsPerPage],
-    queryFn: () => GetFlexValueSet(page, rowsPerPage),
+    queryKey: ["flexValueSetList",   page, rowsPerPage, searchValue],
+    queryFn: () => GetFlexValueSet(page, rowsPerPage, searchValue),
 
     // enabled: false, // ❗ không auto call
   });

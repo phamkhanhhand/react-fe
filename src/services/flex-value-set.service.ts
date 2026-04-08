@@ -21,9 +21,11 @@ export const useDeleteFlexValueSetApi = async (data: { flexValueSetId: number })
 // GET
 export const GetFlexValueSet = async (
   pageIndex: number,
-  pageSize: number): Promise<any> => {
+  pageSize: number,
+  searchValue: string
+): Promise<any> => {
 
-  const { data: res } = await PublicRequest.get<any>(`/flex-value-set?page=${pageIndex + 1}&pageSize=${pageSize}`, {
+  const { data: res } = await PublicRequest.get<any>(`/flex-value-set?page=${pageIndex + 1}&pageSize=${pageSize}&searchValue=${searchValue}`, {
     params: {   },
   });
   return res;

@@ -38,13 +38,13 @@ export default function FlexValueSetPage() {
   const [total, setTotal] = useState(0);
   const [openAddPopup, setOpenAddPopup] = useState(false);
   const [keyword, setKeyword] = useState("");//giá trị mặc định; các cái useState sẽ đồng bộ hook và giao diện
+  const [searchValue, setSearchValue] = useState("");
 
-
-  const { data: dataRepo, isLoading, isError, error, refetch } = useFlexValueSetQuery(page, rowsPerPage);
+  const { data: dataRepo, isLoading, isError, error, refetch } = useFlexValueSetQuery(page, rowsPerPage, searchValue);
 
   const { data: editingData, refetch: refetchEditting } = useGetFlexValueSetById(flexValueSetId, {
     onSuccess: (data) => {
- 
+
 
       console.log("loaded", data);
     },
@@ -60,6 +60,32 @@ export default function FlexValueSetPage() {
     }
   }, [dataRepo]);
 
+  const searchList = async () => {
+ 
+    setSearchValue(keyword);
+
+  setTimeout(() => {
+    refetch();
+  }, 0); 
+  }
+
+  /*
+  * enter -> search
+  */
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && !openAddPopup) {
+ //todo searchValue not update
+        searchList();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [openAddPopup]);
 
 
 
@@ -79,6 +105,7 @@ export default function FlexValueSetPage() {
 
   const handleChangeKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
+    console.log(event.target.value + "=" + keyword);
   }
 
   const save = async (flexValueSet: { flexValueSetCode: string; flexValueSetName: string }) => {
@@ -93,11 +120,11 @@ export default function FlexValueSetPage() {
       },
     });
   }
-  
+
   const deleteFlexValueSet = async (flexValueSetId: number) => {
 
     deleteMutate({ flexValueSetId }, {
-      onSuccess: () => { 
+      onSuccess: () => {
         refetch(); // reload list 
       },
     });
@@ -111,9 +138,9 @@ export default function FlexValueSetPage() {
 
   }
 
-  function onDeleteFlexValueSet(flexValueSetId: number): void { 
+  function onDeleteFlexValueSet(flexValueSetId: number): void {
     if (window.confirm("Are you sure you want to delete this item?")) {
-        deleteFlexValueSet(flexValueSetId);
+      deleteFlexValueSet(flexValueSetId);
     }
   }
 
@@ -128,7 +155,7 @@ export default function FlexValueSetPage() {
         Danh sách danh mục
       </Box>
 
-      <Toolbar disableGutters> 
+      <Toolbar disableGutters>
         <Button variant="contained" color="primary" onClick={() => {
           setOpenAddPopup(true);
         }
@@ -149,6 +176,7 @@ export default function FlexValueSetPage() {
           sx={{ p: '10px' }}
           aria-label="search"
           data-testid="search-button"
+          onClick={searchList}
         >
           <SearchIcon />
         </IconButton>
@@ -184,16 +212,16 @@ export default function FlexValueSetPage() {
                 <TableCell>{item.description}</TableCell>
                 <TableCell>
 
-                  <Group> 
+                  <Group>
                     <ActionIcon variant="default" size="lg" onClick={() => getForEdit(item.flexValueSetId)}>
                       {MdEdit({ size: 18 })}
-                    </ActionIcon> 
+                    </ActionIcon>
                     <ActionIcon variant="default" size="lg" onClick={() => onDeleteFlexValueSet(item.flexValueSetId)}>
                       {MdOutlineDelete({ size: 18 })}
-                    </ActionIcon> 
+                    </ActionIcon>
                   </Group>
 
-                </TableCell> 
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
