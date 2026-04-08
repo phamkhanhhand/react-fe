@@ -44,10 +44,7 @@ export default function FlexValueSetPage() {
 
   const { data: editingData, refetch: refetchEditting } = useGetFlexValueSetById(flexValueSetId, {
     onSuccess: (data) => {
-
-      data.flexValueSetCode = data.flexValueSetCode ? data.flexValueSetCode : data.flex_value_set_code;
-      data.flexValueSetName = data.flexValueSetName ? data.flexValueSetName : data.flex_value_set_name;
-
+ 
 
       console.log("loaded", data);
     },
