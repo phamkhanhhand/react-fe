@@ -20,7 +20,7 @@ import {
 import FlexValueAddPopup from "./flex-value-add-popup";
 import { useFlexValueSetQuery, useGetFlexValueSetById } from "../../hooks/api/useflex-value-set-query";
 import FlexValueSetEditPopup from "./flex-value-set-edit-popup";
-import { useSaveFlexValueSetMutation } from "../../hooks/api/useflex-value-setMutation";
+import { useDeleteFlexValueSetMutation, useSaveFlexValueSetMutation } from "../../hooks/api/useflex-value-setMutation";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { ActionIcon, Group } from "@mantine/core";
@@ -51,7 +51,8 @@ export default function FlexValueSetPage() {
   });
 
 
-  const { mutate, isPending, error: saveError } = useSaveFlexValueSetMutation();
+  const { mutate: saveMutate, isPending, error: saveError } = useSaveFlexValueSetMutation();
+  const { mutate: deleteMutate } = useDeleteFlexValueSetMutation();
 
   useEffect(() => {
     if (dataRepo?.meta) {
@@ -82,13 +83,22 @@ export default function FlexValueSetPage() {
 
   const save = async (flexValueSet: { flexValueSetCode: string; flexValueSetName: string }) => {
 
-    mutate(flexValueSet, {
+    saveMutate(flexValueSet, {
       onSuccess: () => {
         setOpenAddPopup(false);
         refetch(); // reload list
 
         // queryClient.invalidateQueries({ queryKey: ["flex-value-set"] });
 
+      },
+    });
+  }
+  
+  const deleteFlexValueSet = async (flexValueSetId: number) => {
+
+    deleteMutate({ flexValueSetId }, {
+      onSuccess: () => { 
+        refetch(); // reload list 
       },
     });
   }
@@ -101,8 +111,10 @@ export default function FlexValueSetPage() {
 
   }
 
-  function onDeleteFlexValueSet(flexValueSetCode: string): void {
-    throw new Error("Function not implemented.");
+  function onDeleteFlexValueSet(flexValueSetId: number): void { 
+    if (window.confirm("Are you sure you want to delete this item?")) {
+        deleteFlexValueSet(flexValueSetId);
+    }
   }
 
 
@@ -174,6 +186,10 @@ export default function FlexValueSetPage() {
 
                   <Group> 
                     <ActionIcon variant="default" size="lg" onClick={() => getForEdit(item.flexValueSetId)}>
+                      {MdEdit({ size: 18 })}
+                    </ActionIcon> 
+                    <ActionIcon variant="default" size="lg" onClick={() => onDeleteFlexValueSet(item.flexValueSetId)}>
+                      {MdOutlineDelete({ size: 18 })}
                     </ActionIcon> 
                   </Group>
 

@@ -12,6 +12,11 @@ export const useSaveFlexValueSetApi = async (data: ExampleRequest): Promise<any>
   return res;
 };
 
+export const useDeleteFlexValueSetApi = async (data: { flexValueSetId: number }): Promise<any> => {
+  const { data: res } = await PublicRequest.delete<any>(`/flex-value-set/${data.flexValueSetId}`);
+  return res;
+};
+
 
 // GET
 export const GetFlexValueSet = async (
