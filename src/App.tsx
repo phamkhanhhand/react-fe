@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ExamplePage from './pages/example/ExamplePage';
 import FlexValuePage from './pages/flex-value/flex-value-list';
+import FlexValueSetPage from './pages/flex-value/flex-value-set-list';
 
 
 function App() {
@@ -14,31 +15,14 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<div>Home</div>} /> */}
 
-        <Route path="/" element={<ExamplePage />} />
+        <Route path="/" element={<FlexValueSetPage />} />
         <Route path="/flex-values" element={<FlexValuePage />} />
+        <Route path="/flex-value-sets" element={<FlexValueSetPage />} />
 
       </Routes>
     </BrowserRouter>
   );
-
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.tsx</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header>
-  //   </div>
-  // );
+ 
 }
 
 export default App;

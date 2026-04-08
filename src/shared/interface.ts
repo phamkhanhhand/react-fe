@@ -16,15 +16,23 @@ export interface FlexValue {
     flex_value_set_name: string;
     id: number;
 
+    
+    flexValue: string;
+    flexValueName: string;
+
+
 }
 
 
 
 
-export interface FlexValue {
-    flexValue: string;
-    flexValueName: string;
+export interface FlexValueSet {
+    flexValueSetId: number;
+    flex_value_set_id: number;
+    flexValueSetCode: string;
     flex_value_set_name: string;
-    id: number;
+    flex_value_set_code: string;
+    flexValueSetName: string;  
+    description: string;
 
 }
