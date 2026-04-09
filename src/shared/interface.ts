@@ -11,20 +11,13 @@ export interface PagingData<T> {
 }
 
 export interface FlexValue {
-    flex_value: string;
-    flex_value_name: string;
-    flex_value_set_name: string;
-    id: number;
-
-    
+    flexValueId: number;
     flexValue: string;
     flexValueName: string;
-
-
+    flexValueSetName: string;  
+    description: string; 
 }
-
-
-
+ 
 
 export interface FlexValueSet {
     flexValueSetId: number;
@@ -33,6 +26,5 @@ export interface FlexValueSet {
     // flex_value_set_name: string;
     // flex_value_set_code: string;
     flexValueSetName: string;  
-    description: string;
-
+    description: string; 
 }

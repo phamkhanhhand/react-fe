@@ -7,8 +7,13 @@ const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
 
 
 // POST
-export const SaveFlexValue = async (data: ExampleRequest): Promise<any> => {
-  const { data: res } = await PublicRequest.post<any>("/flexvalue/save", data);
+export const useSaveFlexValueApi = async (data: ExampleRequest): Promise<any> => {
+  const { data: res } = await PublicRequest.post<any>("/flex-value/save", data);
+  return res;
+};
+
+export const useDeleteFlexValueApi = async (data: { flexValueId: number }): Promise<any> => {
+  const { data: res } = await PublicRequest.delete<any>(`/flex-value/${data.flexValueId}`);
   return res;
 };
 
@@ -16,47 +21,22 @@ export const SaveFlexValue = async (data: ExampleRequest): Promise<any> => {
 // GET
 export const GetFlexValue = async (
   pageIndex: number,
-  pageSize: number): Promise<any> => {
+  pageSize: number,
+  searchValue: string
+): Promise<any> => {
 
-  const { data: res } = await PublicRequest.get<any>(`/flex-value?page=${pageIndex + 1}&pageSize=${pageSize}`, {
+  const { data: res } = await PublicRequest.get<any>(`/flex-value?page=${pageIndex + 1}&pageSize=${pageSize}&searchValue=${searchValue}`, {
     params: {   },
   });
   return res;
 };
+  
+// GET
+export const GetFlexValueByIdApi = async (
+  flexValueId: number): Promise<any> => {
 
-
-export const exampleApi = async (
-  data: ExampleRequest
-): Promise<ExampleResponse> => {
-  const res = await fetch(`${BASE_URL}/flexvalue/add`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
+  const { data: res } = await PublicRequest.get<any>(`/flex-value/${flexValueId}`, {
+    params: {   },
   });
-
-  if (!res.ok) {
-    throw new Error("API error");
-  }
-
-  return res.json();
-};
-
-export const exampleGetApi = async (
-  data: ExampleRequest
-): Promise<ExampleResponse> => {
-  const query = new URLSearchParams({
-    name: data.name,
-  }).toString();
-
-  const res = await fetch(
-    `http://localhost:3001/flexvalue?${query}`
-  );
-
-  if (!res.ok) {
-    throw new Error("API error");
-  }
-
-  return res.json();
+  return res;
 };
