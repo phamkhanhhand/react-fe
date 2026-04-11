@@ -3,7 +3,7 @@ import { exampleApi ,exampleGetApi} from "../../services/example.service";
 import { ExampleRequest, ExampleResponse } from "../../types/example"; 
 import { useEffect } from "react";
 import { FlexValue, PagingData,   } from "../../shared/interface";
-import { GetFlexValue, GetFlexValueByIdApi } from "../../services/flex-value.service"; 
+import { GetAllFlexValueBySetId, GetFlexValue, GetFlexValueByIdApi } from "../../services/flex-value.service"; 
 
 export const useFlexValueQuery = (
   
@@ -67,3 +67,40 @@ export const useFlexValueQuery = (
    return query;
  };
     
+
+
+
+
+ /*
+ * get all by set id
+ */
+export const useFlexValueBySetIdQuery = (
+  
+  id: number, 
+  options?: {
+  onSuccess?: (data: PagingData<FlexValue>) => void;
+  onError?: (error: Error) => void;
+}) => {
+  
+  const query = useQuery<PagingData<FlexValue>>({
+    queryKey: ["FlexValueBySetIdQuery",   id],
+    queryFn: () => GetAllFlexValueBySetId(id),
+
+    // enabled: false, // ❗ không auto call
+  });
+
+  useEffect(() => {
+    if (query.isSuccess && options?.onSuccess) {
+      options.onSuccess(query.data);
+    }
+  }, [query.isSuccess, query.data]);
+
+  useEffect(() => {
+    if (query.isError && options?.onError) {
+      options.onError(query.error as Error);
+    }
+  }, [query.isError, query.error]);
+
+  return query;
+};
+ 

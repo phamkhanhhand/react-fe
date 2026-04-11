@@ -6,19 +6,40 @@ const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
 
 
 
-// POST
+/*
+* Lưu
+*/
 export const useSaveFlexValueApi = async (data: ExampleRequest): Promise<any> => {
   const { data: res } = await PublicRequest.post<any>("/flex-value/save", data);
   return res;
 };
 
+/*
+* Xóa
+*/
 export const useDeleteFlexValueApi = async (data: { flexValueId: number }): Promise<any> => {
   const { data: res } = await PublicRequest.delete<any>(`/flex-value/${data.flexValueId}`);
   return res;
 };
 
+  
 
-// GET
+/*
+* Get detail
+*/
+export const GetFlexValueByIdApi = async (
+  flexValueId: number): Promise<any> => {
+
+  const { data: res } = await PublicRequest.get<any>(`/flex-value/${flexValueId}`, {
+    params: {   },
+  });
+  return res;
+};
+
+
+/*
+* Paging all
+*/
 export const GetFlexValue = async (
   pageIndex: number,
   pageSize: number,
@@ -30,12 +51,17 @@ export const GetFlexValue = async (
   });
   return res;
 };
-  
-// GET
-export const GetFlexValueByIdApi = async (
-  flexValueId: number): Promise<any> => {
 
-  const { data: res } = await PublicRequest.get<any>(`/flex-value/${flexValueId}`, {
+
+
+/*
+* Get all by set id
+*/
+export const GetAllFlexValueBySetId = async (
+  id: number 
+): Promise<any> => {
+
+  const { data: res } = await PublicRequest.get<any>(`/flex-value/set/${id}`, {
     params: {   },
   });
   return res;

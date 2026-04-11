@@ -29,7 +29,7 @@ import { MdOutlineDelete, MdEdit } from 'react-icons/md'
 import { FlexValueSet } from "../../shared/interface";
 
 
-export default function FlexValueSetPage() {
+export default function FlexValueSetHierachyPage() {
 
   const navigate = useNavigate();
   const [page, setPage] = useState(0); // note: MUI pages are 0-indexed

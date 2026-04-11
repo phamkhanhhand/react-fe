@@ -136,17 +136,23 @@ export default function FlexValuePage() {
     }
   
   
-    const getForEdit = async (flexValueId: number) => {
+    const getForEdit = async (flexValueId: number|undefined) => {
   
+      if(flexValueId){
+        
       setFlexValueId(flexValueId);
       setOpenAddPopup(true); // open popup after data is loaded
   
+      }
     }
   
-    function onDeleteFlexValue(flexValueId: number): void {
+    function onDeleteFlexValue(flexValueId: number|undefined): void {
+      
+      if(flexValueId){
       if (window.confirm("Are you sure you want to delete this item?")) {
         deleteFlexValue(flexValueId);
       }
+    }
     }
   
   
