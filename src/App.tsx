@@ -7,12 +7,15 @@ import FlexValuePage from './pages/flex-value/flex-value-list';
 import FlexValueSetPage from './pages/flex-value/flex-value-set-list';
 import FlexValueSetEditPage from './pages/flex-value/flex-value-set-edit';
 import FlexValueSetDetailPage from './pages/flex-value/flex-value-set-detail';
+import AppRouter from './AppRouter';
 
 
 function App() {
 
+  return <AppRouter />;
 
   return (
+ 
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<div>Home</div>} /> */}

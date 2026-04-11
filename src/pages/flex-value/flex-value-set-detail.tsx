@@ -344,7 +344,74 @@ export default function FlexValueSetDetailPage() {
 
             #region
 
+ <Box>Danh sách các danh mục cha</Box>
 
+            <Toolbar disableGutters>
+
+              <TablePagination
+                component="div"
+                count={formData?.detail?.length || 0}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[5, 10, 25]}
+              />
+
+            </Toolbar>
+
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Mã</TableCell>
+                    <TableCell>Tên</TableCell>
+                    <TableCell>Mô tả</TableCell>
+                    <TableCell>Thao tác</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {pagedData?.map((item) => {
+
+                    if (!item || !item.uiid) return null; // 🔥 chống crash
+
+
+                    return (
+                      <TableRow key={item.uiid}>
+                        <TableCell>
+                          {
+                            item.flexValue
+                          }
+
+                        </TableCell>
+                        <TableCell>
+                          {
+                            item.flexValueName
+                          }
+                        </TableCell>
+                        <TableCell>
+                          {
+                            item.description
+                          }
+
+                        </TableCell>
+                        <TableCell>
+
+                          <ActionIcon variant="default" size="lg" onClick={() => setOpenLinkPopup(true)}>
+                            {MdLink({ size: 18 })}
+
+                          </ActionIcon>
+
+
+                        </TableCell>
+                      </TableRow>
+                    )
+                  }
+
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
 
 
 
