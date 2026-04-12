@@ -1,7 +1,10 @@
 import axios from "axios";
+// import api from "../../services/api";
 
 // baseURL từ env
 const BASE_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
+
+
 
 // Axios instance dùng cho public API
 export const PublicRequest = axios.create({
@@ -12,10 +15,17 @@ export const PublicRequest = axios.create({
 export const AuthRequest = axios.create({
   baseURL: BASE_URL,
 });
+ 
 
-// Thêm interceptor tự động attach token từ localStorage
-AuthRequest.interceptors.request.use((request) => {
-  const token = localStorage.getItem("accessToken");
-  if (token) request.headers.Authorization = `Bearer ${token}`;
-  return request;
+// 👉 request interceptor (gắn token)
+AuthRequest.interceptors.request.use((config) => {
+  const token = localStorage.getItem('access_token'); 
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
 });
+
+ 

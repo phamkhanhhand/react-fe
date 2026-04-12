@@ -1,0 +1,147 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.login-card {
+  width: 360px;
+  padding: 32px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-logo {
+  width: 70px;
+  margin: 0 auto 10px;
+}
+
+.login-title {
+  margin: 0;
+  text-align: center;
+}
+
+.login-subtitle {
+  margin: 0;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+.login-error {
+  background: #ffe5e5;
+  color: #d63031;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.login-input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.login-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.login-button {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #667eea;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-button:hover {
+  background: #5a67d8;
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper .login-input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+/* 👁 icon mặc định */
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* vẽ con mắt */
+.toggle-password::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 12px;
+  border: 2px solid #666;
+  border-radius: 50% / 60%;
+  top: 3px;
+  left: 0;
+}
+
+/* con ngươi */
+.toggle-password::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #666;
+  border-radius: 50%;
+  top: 7px;
+  left: 7px;
+}
+
+/* 👁‍🗨 khi đang show password (gạch chéo) */
+.toggle-password.show::before {
+  border-color: #333;
+}
+
+.toggle-password.show::after {
+  background: #333;
+}
+
+/* gạch chéo */
+.toggle-password.show {
+  transform: rotate(45deg);
+}
+
+.toggle-password.show::after {
+  width: 2px;
+  height: 14px;
+  border-radius: 0;
+  top: 3px;
+  left: 9px;
+}

@@ -9,6 +9,7 @@ import {
   IconButton
 } from "@mui/material";
 import { useState } from "react";
+import { logout } from "../services/auth";
 
 interface Props {
   height?: number;
@@ -24,6 +25,9 @@ export default function Header({ height = 64 }: Props) {
 
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleLogout = () => {
+    logout();
   };
 
   const handleClose = () => {
@@ -62,7 +66,7 @@ export default function Header({ height = 64 }: Props) {
             onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
 
         </Box>
