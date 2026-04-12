@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  Drawer,
-  Box,
-  IconButton
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Drawer, Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./sidebar";
 import Header from "./header";
@@ -16,44 +11,50 @@ const headerHeight = 64;
 export default function MainLayout() {
   const [open, setOpen] = useState(true);
 
+  const sidebarWidth = open ? drawerWidth : collapsedWidth;
+
   return (
     <Box sx={{ display: "flex" }}>
       
-      {/* 🔥 SIDEBAR */}
+      {/* SIDEBAR */}
       <Drawer
         variant="permanent"
         sx={{
-          width: open ? drawerWidth : collapsedWidth,
+          width: sidebarWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: open ? drawerWidth : collapsedWidth,
+            width: sidebarWidth,
             transition: "width 0.3s",
             overflowX: "hidden"
           }
         }}
       >
-        {/* toggle */}
-        <Box sx={{ display: "flex", justifyContent: "flex-end", p: 1 }}>
-          <IconButton onClick={() => setOpen(!open)}>
-            <MenuIcon />
-          </IconButton>
-        </Box>
-
-        <Sidebar collapsed={!open} />
+        <Sidebar
+          collapsed={!open}
+          onToggle={() => setOpen(!open)}
+        />
       </Drawer>
 
-      {/* 🔥 RIGHT SIDE */}
-      <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-        
-        {/* HEADER */}
-        <Header height={headerHeight} />
+      {/* RIGHT SIDE */}
+      <Box
+        sx={{
+          flexGrow: 1,
+          height: "100vh",
+          overflow: "hidden" // 🔥 chặn scroll toàn layout
+        }}
+      >
+        <Header
+          height={headerHeight}
+          sidebarWidth={sidebarWidth}
+        />
 
-        {/* CONTENT */}
+        {/* CONTENT SCROLL */}
         <Box
           sx={{
-            flexGrow: 1,
-            p: 3,
-            mt: `${headerHeight}px`
+            mt: `${headerHeight}px`,
+            height: `calc(100vh - ${headerHeight}px)`,
+            overflowY: "auto", // 🔥 chỉ content scroll
+            p: 3
           }}
         >
           <Outlet />

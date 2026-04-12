@@ -5,12 +5,16 @@ import {
   ListItemText,
   Collapse,
   ListItemIcon,
-  Tooltip
+  Tooltip,
+  Box,
+  Typography,
+  IconButton
 } from "@mui/material";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CategoryIcon from "@mui/icons-material/Category";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface MenuItem {
@@ -21,7 +25,6 @@ interface MenuItem {
   children?: MenuItem[];
 }
 
-// 👉 sau này thay bằng API const { data } = useQuery(...)
 const menus: MenuItem[] = [
   {
     id: 1,
@@ -56,7 +59,6 @@ const SidebarItem = ({
 
   const isActive = item.path && location.pathname === item.path;
 
-  // 🔥 MENU CÓ CON
   if (item.children?.length) {
     return (
       <>
@@ -93,11 +95,10 @@ const SidebarItem = ({
     );
   }
 
-  // 🔥 MENU LÁ
   return (
     <Tooltip title={collapsed ? item.name : ""} placement="right">
       <ListItemButton
-  selected={!!isActive}
+        selected={!!isActive}
         onClick={() => navigate(item.path || "")}
         sx={{
           justifyContent: collapsed ? "center" : "flex-start"
@@ -113,16 +114,48 @@ const SidebarItem = ({
   );
 };
 
-export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
+export default function Sidebar({
+  collapsed,
+  onToggle
+}: {
+  collapsed?: boolean;
+  onToggle?: () => void;
+}) {
   return (
-    <List>
-      {menus.map(item => (
-        <SidebarItem
-          key={item.id}
-          item={item}
-          collapsed={collapsed}
-        />
-      ))}
-    </List>
+    <>
+      {/* HEADER */}
+      <Box
+        sx={{
+          height: 64,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          px: 1,
+          borderBottom: "1px solid #eee"
+        }}
+      >
+        {!collapsed && (
+          <Typography variant="h6" noWrap>
+            FLEX VALUE APP
+          </Typography>
+        )}
+
+        {/* 🔥 luôn hiển thị để mở lại */}
+        <IconButton onClick={onToggle}>
+          <MenuIcon />
+        </IconButton>
+      </Box>
+
+      {/* MENU */}
+      <List>
+        {menus.map(item => (
+          <SidebarItem
+            key={item.id}
+            item={item}
+            collapsed={collapsed}
+          />
+        ))}
+      </List>
+    </>
   );
 }
