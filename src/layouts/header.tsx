@@ -46,7 +46,7 @@ export default function Header({ height = 64 }: Props) {
         
         {/* LEFT */}
         <Typography variant="h6">
-          My App
+          FLEX VALUE APP
         </Typography>
 
         {/* RIGHT */}
